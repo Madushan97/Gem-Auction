@@ -56,6 +56,15 @@ public class UsersServiceImpl implements UserService {
         user.setUpdatedAt(new Date());
 
         userRepository.save(user);
-        return "User "+ user.getId() + " saved.";
+        return "User ID : "+ user.getId() + ", saved.";
+    }
+
+    @Override
+    public String deleteUser(int userId) {
+        User user = userRepository.findByIdAndActiveStatus(userId, true);
+        if (user != null) {
+            userRepository.deleteById(userId);
+        }
+        return "Delete ID : " + userId + ", successfully";
     }
 }

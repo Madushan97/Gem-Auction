@@ -48,4 +48,17 @@ public class UserController {
                 HttpStatus.CREATED
         );
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<StandardResponse> deleteUser(@RequestParam(value = "id")int userId) {
+        String deleteStatus = userService.deleteUser(userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Delete user successfully",
+                        deleteStatus
+                ),
+                HttpStatus.OK
+        );
+    }
 }
