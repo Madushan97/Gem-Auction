@@ -36,7 +36,7 @@ public class UserController {
         );
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<StandardResponse> createUser(@RequestBody UserRequestDto userRequestDto) {
         String userList = userService.createUser(userRequestDto);
         return new ResponseEntity<StandardResponse>(
