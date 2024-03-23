@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -19,8 +20,8 @@ public class UserResponseDto {
     private String password;
     private String address;
     private String phoneNumber;
-    private Boolean status;
+    private Boolean activeStatus;
     private Set<Auction> auction;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 }

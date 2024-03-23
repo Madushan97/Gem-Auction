@@ -1,15 +1,13 @@
 package com.madushan.Gem.Auction.service;
 
-import com.madushan.Gem.Auction.bean.CommonResponseBean;
 import com.madushan.Gem.Auction.dto.requestDto.UserRequestDto;
+import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
+
+import java.util.List;
 
 public interface UserService {
 
-    CommonResponseBean getAllUsers();
+    List<UserResponseDto> getAllUsers();
 
-    CommonResponseBean getUserById(int userId);
-
-    CommonResponseBean createUser(UserRequestDto userRequestDto);
-
-    CommonResponseBean deleteUser(int userId);
+    String createUser(UserRequestDto userRequestDto);
 }

@@ -18,12 +18,12 @@ public class User {
     private String password;
     private String address;
     private String phoneNumber;
-    private Boolean status;
+    private Boolean activeStatus;
     private Set<Auction> auction;
     @CreatedDate
-    private LocalDateTime createdAt;
+    private Date createdAt;
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -81,13 +81,13 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    @Column(name = "status", length = 20)
-    public Boolean getStatus() {
-        return status;
+    @Column(name = "active_status", length = 20)
+    public Boolean getActiveStatus() {
+        return activeStatus;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setActiveStatus(Boolean activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
     @ManyToMany(mappedBy = "users")
@@ -101,21 +101,21 @@ public class User {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = true, length = 20)
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = true, length = 20)
-    public LocalDateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

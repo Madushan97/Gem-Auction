@@ -1,4 +1,4 @@
-package com.madushan.Gem.Auction.bean;
+package com.madushan.Gem.Auction.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CommonResponseBean {
+public class StandardResponse {
 
-    private int responseCode;
-    private String responseDescription;
+    private int code;
+    private String message;
     private Object data;
 }
