@@ -27,7 +27,7 @@ public class Auction {
         this.id = id;
     }
 
-    @Column(name = "action_name", nullable = false, length = 250)
+    @Column(name = "auction_name", nullable = false, length = 250)
     public String getAuctionName() {
         return auctionName;
     }

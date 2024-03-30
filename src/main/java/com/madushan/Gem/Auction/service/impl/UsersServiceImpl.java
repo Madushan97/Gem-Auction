@@ -1,12 +1,12 @@
 package com.madushan.Gem.Auction.service.impl;
 
-import com.madushan.Gem.Auction.controller.UserController;
 import com.madushan.Gem.Auction.dto.requestDto.UserRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
 import com.madushan.Gem.Auction.model.User;
 import com.madushan.Gem.Auction.repository.UserRepository;
 import com.madushan.Gem.Auction.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -80,5 +81,33 @@ public class UsersServiceImpl implements UserService {
         }
         LOGGER.error("User ID : {} is null", userId);
         return "Delete ID : " + userId + ", successfully";
+    }
+
+    @Override
+    public UserResponseDto updateUser(int userId, UserRequestDto userRequestDto) {
+        Optional<User> existingUser = userRepository.findById(userId);
+        User currentUser = existingUser.get();
+        if (existingUser.isPresent() && !existingUser.isEmpty()) {
+            currentUser.setEmail(userRequestDto.getEmail());
+            currentUser.setAuction(userRequestDto.getAuction());
+            currentUser.setUsername(userRequestDto.getUsername());
+            currentUser.setActiveStatus(userRequestDto.getActiveStatus());
+            currentUser.setAddress(userRequestDto.getAddress());
+            currentUser.setPassword(userRequestDto.getPassword());
+            currentUser.setUpdatedAt(new Date());
+            currentUser.setPhoneNumber(userRequestDto.getPhoneNumber());
+
+            userRepository.save(currentUser);
+        }
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setActiveStatus(currentUser.getActiveStatus());
+        userResponseDto.setUsername(currentUser.getUsername());
+        userResponseDto.setAddress(currentUser.getAddress());
+        userResponseDto.setAuction(currentUser.getAuction());
+        userResponseDto.setPassword(currentUser.getPassword());
+        userResponseDto.setPhoneNumber(currentUser.getPhoneNumber());
+        userResponseDto.setId(userId);
+        userResponseDto.setEmail(currentUser.getEmail());
+        return userResponseDto;
     }
 }

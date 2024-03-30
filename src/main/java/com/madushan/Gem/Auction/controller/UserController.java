@@ -26,6 +26,7 @@ public class UserController {
     @GetMapping("/getAll")
     public ResponseEntity<StandardResponse> getAllUsers() {
         List<UserResponseDto> userList = userService.getAllUsers();
+        LOGGER.info("Get all users successfully");
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(
                         HttpStatus.OK.value(),
@@ -39,6 +40,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<StandardResponse> createUser(@RequestBody UserRequestDto userRequestDto) {
         String userList = userService.createUser(userRequestDto);
+        LOGGER.info("Create user {} successfully", userRequestDto.getId());
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(
                         HttpStatus.CREATED.value(),
@@ -52,11 +54,26 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<StandardResponse> deleteUser(@RequestParam(value = "id")int userId) {
         String deleteStatus = userService.deleteUser(userId);
+        LOGGER.info("Delete user {} successfully", userId);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(
                         HttpStatus.OK.value(),
                         "Delete user successfully",
                         deleteStatus
+                ),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("/update/{id}")
+    public ResponseEntity<StandardResponse> updateUser(@RequestParam(value = "id")int userId, @RequestBody UserRequestDto userRequestDto) {
+        UserResponseDto updatedUser = userService.updateUser(userId, userRequestDto);
+        LOGGER.info("Update user {} successfully", userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Update user successfully",
+                        updatedUser
                 ),
                 HttpStatus.OK
         );
