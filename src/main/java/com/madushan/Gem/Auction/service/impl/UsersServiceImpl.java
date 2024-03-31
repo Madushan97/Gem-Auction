@@ -23,6 +23,7 @@ public class UsersServiceImpl implements UserService {
     private final Logger LOGGER = LoggerFactory.getLogger(UsersServiceImpl.class);
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<UserResponseDto> getAllUsers() {
@@ -87,7 +88,8 @@ public class UsersServiceImpl implements UserService {
     public UserResponseDto updateUser(int userId, UserRequestDto userRequestDto) {
         Optional<User> existingUser = userRepository.findById(userId);
         User currentUser = existingUser.get();
-        if (existingUser.isPresent() && !existingUser.isEmpty()) {
+        if (existingUser.isPresent()) {
+            currentUser.setId(userId);
             currentUser.setEmail(userRequestDto.getEmail());
             currentUser.setAuction(userRequestDto.getAuction());
             currentUser.setUsername(userRequestDto.getUsername());
@@ -95,19 +97,30 @@ public class UsersServiceImpl implements UserService {
             currentUser.setAddress(userRequestDto.getAddress());
             currentUser.setPassword(userRequestDto.getPassword());
             currentUser.setUpdatedAt(new Date());
+            currentUser.setCreatedAt(currentUser.getCreatedAt());
             currentUser.setPhoneNumber(userRequestDto.getPhoneNumber());
 
             userRepository.save(currentUser);
         }
         UserResponseDto userResponseDto = new UserResponseDto();
+
         userResponseDto.setActiveStatus(currentUser.getActiveStatus());
         userResponseDto.setUsername(currentUser.getUsername());
         userResponseDto.setAddress(currentUser.getAddress());
         userResponseDto.setAuction(currentUser.getAuction());
         userResponseDto.setPassword(currentUser.getPassword());
         userResponseDto.setPhoneNumber(currentUser.getPhoneNumber());
-        userResponseDto.setId(userId);
         userResponseDto.setEmail(currentUser.getEmail());
+        userResponseDto.setUpdatedAt(new Date());
+        userResponseDto.setId(currentUser.getId());
+        userResponseDto.setCreatedAt(currentUser.getCreatedAt());
+
         return userResponseDto;
+    }
+
+    @Override
+    public UserResponseDto getUserById(int userId) {
+        User user = userRepository.findById(userId).get();
+        return modelMapper.map(user, UserResponseDto.class);
     }
 }

@@ -37,6 +37,20 @@ public class UserController {
         );
     }
 
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<StandardResponse> getUser(@PathVariable(value = "id")int userId) {
+        UserResponseDto user = userService.getUserById(userId);
+        LOGGER.info("Get user {} successfully", userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Get user successfully",
+                        user
+                ),
+                HttpStatus.OK
+        );
+    }
+
     @PostMapping("/create")
     public ResponseEntity<StandardResponse> createUser(@RequestBody UserRequestDto userRequestDto) {
         String userList = userService.createUser(userRequestDto);
@@ -52,7 +66,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<StandardResponse> deleteUser(@RequestParam(value = "id")int userId) {
+    public ResponseEntity<StandardResponse> deleteUser(@PathVariable(value = "id")int userId) {
         String deleteStatus = userService.deleteUser(userId);
         LOGGER.info("Delete user {} successfully", userId);
         return new ResponseEntity<StandardResponse>(
@@ -65,8 +79,8 @@ public class UserController {
         );
     }
 
-    @DeleteMapping("/update/{id}")
-    public ResponseEntity<StandardResponse> updateUser(@RequestParam(value = "id")int userId, @RequestBody UserRequestDto userRequestDto) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StandardResponse> updateUser(@PathVariable(value = "id")int userId, @RequestBody UserRequestDto userRequestDto) {
         UserResponseDto updatedUser = userService.updateUser(userId, userRequestDto);
         LOGGER.info("Update user {} successfully", userId);
         return new ResponseEntity<StandardResponse>(
