@@ -96,26 +96,14 @@ public class UsersServiceImpl implements UserService {
             currentUser.setActiveStatus(userRequestDto.getActiveStatus());
             currentUser.setAddress(userRequestDto.getAddress());
             currentUser.setPassword(userRequestDto.getPassword());
-            currentUser.setUpdatedAt(new Date());
+//            currentUser.setUpdatedAt(new Date());
             currentUser.setCreatedAt(currentUser.getCreatedAt());
             currentUser.setPhoneNumber(userRequestDto.getPhoneNumber());
 
             userRepository.save(currentUser);
         }
-        UserResponseDto userResponseDto = new UserResponseDto();
 
-        userResponseDto.setActiveStatus(currentUser.getActiveStatus());
-        userResponseDto.setUsername(currentUser.getUsername());
-        userResponseDto.setAddress(currentUser.getAddress());
-        userResponseDto.setAuction(currentUser.getAuction());
-        userResponseDto.setPassword(currentUser.getPassword());
-        userResponseDto.setPhoneNumber(currentUser.getPhoneNumber());
-        userResponseDto.setEmail(currentUser.getEmail());
-        userResponseDto.setUpdatedAt(new Date());
-        userResponseDto.setId(currentUser.getId());
-        userResponseDto.setCreatedAt(currentUser.getCreatedAt());
-
-        return userResponseDto;
+        return modelMapper.map(currentUser, UserResponseDto.class);
     }
 
     @Override
