@@ -25,6 +25,7 @@ public class User {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
+    private UserType userType;
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
