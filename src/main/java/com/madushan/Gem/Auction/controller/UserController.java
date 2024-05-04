@@ -26,6 +26,7 @@ public class UserController {
     @GetMapping("/getAll")
     public ResponseEntity<StandardResponse> getAllUsers() {
         List<UserResponseDto> userList = userService.getAllUsers();
+        LOGGER.info("Get all users successfully");
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(
                         HttpStatus.OK.value(),
@@ -36,7 +37,21 @@ public class UserController {
         );
     }
 
-    @GetMapping("/create")
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<StandardResponse> getUser(@PathVariable(value = "id")int userId) {
+        UserResponseDto user = userService.getUserById(userId);
+        LOGGER.info("Get user {} successfully", userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Get user successfully",
+                        user
+                ),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/create")
     public ResponseEntity<StandardResponse> createUser(@RequestBody UserRequestDto userRequestDto) {
         String userList = userService.createUser(userRequestDto);
         return new ResponseEntity<StandardResponse>(
@@ -46,6 +61,34 @@ public class UserController {
                         userList
                 ),
                 HttpStatus.CREATED
+        );
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<StandardResponse> deleteUser(@PathVariable(value = "id")int userId) {
+        String deleteStatus = userService.deleteUser(userId);
+        LOGGER.info("Delete user {} successfully", userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Delete user successfully",
+                        deleteStatus
+                ),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StandardResponse> updateUser(@PathVariable(value = "id")int userId, @RequestBody UserRequestDto userRequestDto) {
+        UserResponseDto updatedUser = userService.updateUser(userId, userRequestDto);
+        LOGGER.info("Update user {} successfully", userId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(
+                        HttpStatus.OK.value(),
+                        "Update user successfully",
+                        updatedUser
+                ),
+                HttpStatus.OK
         );
     }
 }

@@ -1,11 +1,11 @@
 package com.madushan.Gem.Auction.dto.responseDto;
 
 import com.madushan.Gem.Auction.model.Auction;
+import com.madushan.Gem.Auction.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,6 +22,7 @@ public class UserResponseDto {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
+    private UserType userType;
     private Date createdAt;
     private Date updatedAt;
 }

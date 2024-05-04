@@ -1,14 +1,19 @@
 package com.madushan.Gem.Auction.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -20,6 +25,7 @@ public class User {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
+    private UserType userType;
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
@@ -97,6 +103,16 @@ public class User {
 
     public void setAuction(Set<Auction> auction) {
         this.auction = auction;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_type_id")
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
