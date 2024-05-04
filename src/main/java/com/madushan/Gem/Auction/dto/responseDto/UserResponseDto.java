@@ -22,6 +22,7 @@ public class UserResponseDto {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
+    private UserType userType;
     private Date createdAt;
     private Date updatedAt;
 }

@@ -1,8 +1,11 @@
 package com.madushan.Gem.Auction.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -13,6 +16,11 @@ public class UserType {
     private int id;
     private String userTypeName;
     private String description;
+    private List<User> user;
+
+    public UserType(String userTypeName) {
+        this.userTypeName = userTypeName;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -41,5 +49,15 @@ public class UserType {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @OneToMany
+    @JsonBackReference
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
     }
 }

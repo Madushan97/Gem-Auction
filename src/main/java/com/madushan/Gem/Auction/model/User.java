@@ -105,6 +105,16 @@ public class User {
         this.auction = auction;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_type_id")
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = true, length = 20)
     public Date getCreatedAt() {

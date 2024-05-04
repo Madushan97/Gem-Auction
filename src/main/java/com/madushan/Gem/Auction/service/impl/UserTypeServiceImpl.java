@@ -1,5 +1,6 @@
 package com.madushan.Gem.Auction.service.impl;
 
+import com.madushan.Gem.Auction.dto.requestDto.UserTypeRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserTypeResponseDto;
 import com.madushan.Gem.Auction.model.UserType;
 import com.madushan.Gem.Auction.repository.UserTypeRepository;
@@ -27,5 +28,12 @@ public class UserTypeServiceImpl implements UserTypeService {
             userTypeResponseDtoList.add(userTypeResponseDto);
         }
         return userTypeResponseDtoList;
+    }
+
+    @Override
+    public UserTypeResponseDto createUserTypes(UserTypeRequestDto userTypeRequestDto) {
+        UserType userType = modelMapper.map(userTypeRequestDto, UserType.class);
+        userTypeRepository.save(userType);
+        return modelMapper.map(userType, UserTypeResponseDto.class);
     }
 }

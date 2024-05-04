@@ -54,7 +54,6 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<StandardResponse> createUser(@RequestBody UserRequestDto userRequestDto) {
         String userList = userService.createUser(userRequestDto);
-        LOGGER.info("Create user {} successfully", userRequestDto.getId());
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(
                         HttpStatus.CREATED.value(),

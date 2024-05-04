@@ -3,7 +3,9 @@ package com.madushan.Gem.Auction.service.impl;
 import com.madushan.Gem.Auction.dto.requestDto.UserRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
 import com.madushan.Gem.Auction.model.User;
+import com.madushan.Gem.Auction.model.UserType;
 import com.madushan.Gem.Auction.repository.UserRepository;
+import com.madushan.Gem.Auction.repository.UserTypeRepository;
 import com.madushan.Gem.Auction.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +25,7 @@ public class UsersServiceImpl implements UserService {
     private final Logger LOGGER = LoggerFactory.getLogger(UsersServiceImpl.class);
 
     private final UserRepository userRepository;
+    private final UserTypeRepository userTypeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -41,6 +44,7 @@ public class UsersServiceImpl implements UserService {
                 userResponseDto.setPhoneNumber(user.getPhoneNumber());
                 userResponseDto.setActiveStatus(user.getActiveStatus());
                 userResponseDto.setAuction(user.getAuction());
+                userResponseDto.setUserType(user.getUserType());
                 userResponseDto.setCreatedAt(user.getCreatedAt());
                 userResponseDto.setUpdatedAt(user.getUpdatedAt());
                 userResponseDtoList.add(userResponseDto);
@@ -56,7 +60,6 @@ public class UsersServiceImpl implements UserService {
     public String createUser(UserRequestDto userRequestDto) {
         User user = new User();
 
-        user.setId(userRequestDto.getId());
         user.setUsername(userRequestDto.getUsername());
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(userRequestDto.getPassword());
@@ -64,6 +67,16 @@ public class UsersServiceImpl implements UserService {
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
         user.setActiveStatus(userRequestDto.getActiveStatus());
         user.setAuction(userRequestDto.getAuction());
+
+        UserType userType = userRequestDto.getUserType();
+        if (userType.getId() == 0) {
+            userType.setDescription(userType.getUserTypeName().toUpperCase());
+            userTypeRepository.save(userType);
+        } else {
+            userType = userTypeRepository.findById(userType.getId()).orElse(null);
+        }
+        user.setUserType(userType);
+
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
 

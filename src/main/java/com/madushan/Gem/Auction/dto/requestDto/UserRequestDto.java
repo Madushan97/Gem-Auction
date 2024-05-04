@@ -13,7 +13,6 @@ import java.util.Set;
 @Data
 public class UserRequestDto {
 
-    private Integer id;
     private String username;
     private String email;
     private String password;
@@ -21,4 +20,5 @@ public class UserRequestDto {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
+    private UserType userType;
 }
