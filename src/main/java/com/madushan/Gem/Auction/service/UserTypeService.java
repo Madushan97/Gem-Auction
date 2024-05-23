@@ -8,6 +8,5 @@ import java.util.List;
 public interface UserTypeService {
 
     List<UserTypeResponseDto> getAllUserTypes();
-
     UserTypeResponseDto createUserTypes(UserTypeRequestDto userTypeRequestDto);
 }

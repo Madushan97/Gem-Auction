@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,123 +16,45 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
+@Data
 public class User {
 
-    private Integer id;
-    private String username;
-    private String email;
-    private String password;
-    private String address;
-    private String phoneNumber;
-    private Boolean activeStatus;
-    private Set<Auction> auction;
-    private UserType userType;
-    @CreatedDate
-    private Date createdAt;
-    @LastModifiedDate
-    private Date updatedAt;
-
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer id;
 
     @Column(name = "username", nullable = false, length = 50)
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Column(name = "password", nullable = false, length = 50)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String username;
 
     @Column(name = "email", length = 100)
-    public String getEmail() {
-        return email;
-    }
+    private String email;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @Column(name = "password", nullable = false, length = 50)
+    private String password;
 
     @Column(name = "address", length = 200)
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    private String address;
 
     @Column(name = "phone_number", length = 20)
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    private String phoneNumber;
 
     @Column(name = "active_status", length = 20)
-    public Boolean getActiveStatus() {
-        return activeStatus;
-    }
-
-    public void setActiveStatus(Boolean activeStatus) {
-        this.activeStatus = activeStatus;
-    }
+    private Boolean activeStatus;
 
     @ManyToMany(mappedBy = "users")
-    public Set<Auction> getAuction() {
-        return auction;
-    }
+    private Set<Auction> auctions;
 
-    public void setAuction(Set<Auction> auction) {
-        this.auction = auction;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_type_id", nullable = false)
+    private UserType userType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_type_id")
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = true, length = 20)
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+    private Date createdAt;
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
+    @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = true, length = 20)
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    private Date updatedAt;
 }

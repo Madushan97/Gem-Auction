@@ -38,17 +38,15 @@ public class UserController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<StandardResponse> getUser(@PathVariable(value = "id")int userId) {
+    public ResponseEntity<StandardResponse<UserResponseDto>> getUser(@PathVariable(value = "id") int userId) {
         UserResponseDto user = userService.getUserById(userId);
         LOGGER.info("Get user {} successfully", userId);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse(
-                        HttpStatus.OK.value(),
-                        "Get user successfully",
-                        user
-                ),
-                HttpStatus.OK
+        StandardResponse<UserResponseDto> response = new StandardResponse<>(
+                HttpStatus.OK.value(),
+                "Get user successfully",
+                user
         );
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/create")

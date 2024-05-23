@@ -2,6 +2,7 @@ package com.madushan.Gem.Auction.service.impl;
 
 import com.madushan.Gem.Auction.dto.requestDto.UserRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
+import com.madushan.Gem.Auction.exception.UserNotFoundException;
 import com.madushan.Gem.Auction.model.User;
 import com.madushan.Gem.Auction.model.UserType;
 import com.madushan.Gem.Auction.repository.UserRepository;
@@ -43,7 +44,7 @@ public class UsersServiceImpl implements UserService {
                 userResponseDto.setAddress(user.getAddress());
                 userResponseDto.setPhoneNumber(user.getPhoneNumber());
                 userResponseDto.setActiveStatus(user.getActiveStatus());
-                userResponseDto.setAuction(user.getAuction());
+                userResponseDto.setAuction(user.getAuctions());
                 userResponseDto.setUserType(user.getUserType());
                 userResponseDto.setCreatedAt(user.getCreatedAt());
                 userResponseDto.setUpdatedAt(user.getUpdatedAt());
@@ -66,20 +67,10 @@ public class UsersServiceImpl implements UserService {
         user.setAddress(userRequestDto.getAddress());
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
         user.setActiveStatus(userRequestDto.getActiveStatus());
-        user.setAuction(userRequestDto.getAuction());
-
-        UserType userType = userRequestDto.getUserType();
-        if (userType.getId() == 0) {
-            userType.setDescription(userType.getUserTypeName().toUpperCase());
-            userTypeRepository.save(userType);
-        } else {
-            userType = userTypeRepository.findById(userType.getId()).orElse(null);
-        }
-        user.setUserType(userType);
-
+        user.setAuctions(userRequestDto.getAuction());
+        user.setUserType(userRequestDto.getUserType());
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
-
         userRepository.save(user);
         LOGGER.info("User create successfully");
         return "User ID : "+ user.getId() + ", saved.";
@@ -104,12 +95,11 @@ public class UsersServiceImpl implements UserService {
         if (existingUser.isPresent()) {
             currentUser.setId(userId);
             currentUser.setEmail(userRequestDto.getEmail());
-            currentUser.setAuction(userRequestDto.getAuction());
+            currentUser.setAuctions(userRequestDto.getAuction());
             currentUser.setUsername(userRequestDto.getUsername());
             currentUser.setActiveStatus(userRequestDto.getActiveStatus());
             currentUser.setAddress(userRequestDto.getAddress());
             currentUser.setPassword(userRequestDto.getPassword());
-//            currentUser.setUpdatedAt(new Date());
             currentUser.setCreatedAt(currentUser.getCreatedAt());
             currentUser.setPhoneNumber(userRequestDto.getPhoneNumber());
 
@@ -121,7 +111,9 @@ public class UsersServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getUserById(int userId) {
-        User user = userRepository.findById(userId).get();
-        return modelMapper.map(user, UserResponseDto.class);
+        return userRepository.findById(userId)
+                .map(user -> modelMapper.map(user, UserResponseDto.class))
+                .orElseThrow(() -> new UserNotFoundException("User with id " + userId + " not found"));
     }
+
 }
