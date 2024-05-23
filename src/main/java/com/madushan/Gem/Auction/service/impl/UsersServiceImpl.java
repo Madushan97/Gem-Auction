@@ -68,7 +68,12 @@ public class UsersServiceImpl implements UserService {
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
         user.setActiveStatus(userRequestDto.getActiveStatus());
         user.setAuctions(userRequestDto.getAuction());
-        user.setUserType(userRequestDto.getUserType());
+        List<UserType> userTypes = userTypeRepository.findAll();
+        for (UserType userType : userTypes ) {
+            if (userType.getUserTypeName().equalsIgnoreCase(userRequestDto.getUserType())) {
+                user.setUserType(userType);
+            }
+        }
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
         userRepository.save(user);

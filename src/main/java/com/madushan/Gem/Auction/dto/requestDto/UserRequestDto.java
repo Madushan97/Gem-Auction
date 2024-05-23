@@ -20,5 +20,5 @@ public class UserRequestDto {
     private String phoneNumber;
     private Boolean activeStatus;
     private Set<Auction> auction;
-    private UserType userType;
+    private String userType;
 }

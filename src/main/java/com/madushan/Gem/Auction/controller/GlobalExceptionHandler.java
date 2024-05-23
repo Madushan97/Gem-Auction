@@ -11,7 +11,6 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<StandardResponse<String>> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
         StandardResponse<String> response = new StandardResponse<>(
