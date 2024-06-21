@@ -1,7 +1,6 @@
 package com.madushan.Gem.Auction.controller;
 
 import com.madushan.Gem.Auction.dto.requestDto.UserTypeRequestDto;
-import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserTypeResponseDto;
 import com.madushan.Gem.Auction.service.UserTypeService;
 import com.madushan.Gem.Auction.util.StandardResponse;
