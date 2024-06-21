@@ -3,7 +3,7 @@ package com.madushan.Gem.Auction.service.impl;
 import com.madushan.Gem.Auction.dto.requestDto.UserTypeRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserTypeResponseDto;
 import com.madushan.Gem.Auction.exception.UserTypeExistException;
-import com.madushan.Gem.Auction.model.UserType;
+import com.madushan.Gem.Auction.model.user.UserType;
 import com.madushan.Gem.Auction.repository.UserTypeRepository;
 import com.madushan.Gem.Auction.service.UserTypeService;
 import com.madushan.Gem.Auction.validation.UserTypeValidation;

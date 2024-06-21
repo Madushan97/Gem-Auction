@@ -1,7 +1,6 @@
 package com.madushan.Gem.Auction.dto.requestDto;
 
-import com.madushan.Gem.Auction.model.Auction;
-import com.madushan.Gem.Auction.model.UserType;
+import com.madushan.Gem.Auction.model.auction.Auction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

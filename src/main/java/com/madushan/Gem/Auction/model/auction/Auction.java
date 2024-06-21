@@ -1,5 +1,7 @@
-package com.madushan.Gem.Auction.model;
+package com.madushan.Gem.Auction.model.auction;
 
+import com.madushan.Gem.Auction.model.gem.Gem;
+import com.madushan.Gem.Auction.model.user.User;
 import jakarta.persistence.*;
 
 import java.util.Date;

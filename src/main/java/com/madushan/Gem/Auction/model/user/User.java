@@ -1,7 +1,6 @@
-package com.madushan.Gem.Auction.model;
+package com.madushan.Gem.Auction.model.user;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.madushan.Gem.Auction.model.auction.Auction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

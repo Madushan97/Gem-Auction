@@ -1,5 +1,6 @@
-package com.madushan.Gem.Auction.model;
+package com.madushan.Gem.Auction.model.gem;
 
+import com.madushan.Gem.Auction.model.auction.Auction;
 import jakarta.persistence.*;
 
 @Table(name = "gems")

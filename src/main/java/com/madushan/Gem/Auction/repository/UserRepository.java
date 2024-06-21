@@ -1,6 +1,6 @@
 package com.madushan.Gem.Auction.repository;
 
-import com.madushan.Gem.Auction.model.User;
+import com.madushan.Gem.Auction.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

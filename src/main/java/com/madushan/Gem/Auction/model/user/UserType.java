@@ -1,4 +1,4 @@
-package com.madushan.Gem.Auction.model;
+package com.madushan.Gem.Auction.model.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
