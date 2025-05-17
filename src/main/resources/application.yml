@@ -1,0 +1,21 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/web_auction
+    username: root
+    password: madushan
+#    password: ENC(PJyZxBz4m+oeMeOkghL1V8JseOrwg4V+)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  security:
+    user:
+      name: user
+      password: user
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  secret: madushannipuna
+  expiration: 86400000
